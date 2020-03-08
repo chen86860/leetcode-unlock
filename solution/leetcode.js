@@ -50,44 +50,49 @@ function parse(str) {
 
 function parse(str) {
   if (typeof str !== 'string') {
-    return {};
+    return {}
   }
 
-  return decodeURI(str).split('&').map(param => {
-    const tmp = param.split('=');
-    const key = tmp[0];
-    let value = tmp[1] || true;
-    if (typeof value === 'string' && isNaN(Number(value)) === false) {
-      value = Number(value);
-    }
+  return decodeURI(str)
+    .split('&')
+    .map(param => {
+      const tmp = param.split('=')
+      const key = tmp[0]
+      let value = tmp[1] || true
+      if (typeof value === 'string' && isNaN(Number(value)) === false) {
+        value = Number(value)
+      }
 
-    return { key, value };
-  }).reduce((params, item) => {
-    const { key, value } = item;
-    if (typeof params[key] === 'undefined') {
-      params[key] = value;
-    } else {
-      params[key] = Array.isArray(params[key]) ? params[key] : [params[key]];
-      params[key].push(value);
-    }
+      return { key, value }
+    })
+    .reduce((params, item) => {
+      const { key, value } = item
+      if (typeof params[key] === 'undefined') {
+        params[key] = value
+      } else {
+        params[key] = Array.isArray(params[key]) ? params[key] : [params[key]]
+        params[key].push(value)
+      }
 
-    return params;
-  }, {});
+      return params
+    }, {})
 }
-
 
 // 反转字符串
 function reverse(str) {
   if (typeof str != 'string') {
     return ''
   }
-  Array.prototype.map.call(str, (e) => {
-    return e
-  }).reverse().join('')
+  Array.prototype.map
+    .call(str, e => {
+      return e
+    })
+    .reverse()
+    .join('')
 }
 
 // 计算数组项目的出现次数
-var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice']
 var countNames = names.reduce((allNames, name) => {
   if (name in allNames) {
     allNames[name]++
@@ -96,7 +101,6 @@ var countNames = names.reduce((allNames, name) => {
   }
   return allNames
 }, {})
-
 
 /* 1.Two sum
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
@@ -115,23 +119,22 @@ Subscribe to see which companies asked this question.
  * @param {number} target
  * @return {number[]}
  */
-var twoSum = function (nums, target) {
+var twoSum = function(nums, target) {
   for (let i = 0; i < nums.length; i++) {
     for (let j = 0; j < nums.length; j++) {
-      if (i === j) continue;
+      if (i === j) continue
       if (nums[i] + nums[j] === target) {
         return [i, j]
       }
     }
   }
-};
-
+}
 
 /**
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function (s) {
+var lengthOfLongestSubstring = function(s) {
   // if (typeof s !== 'string') return
   // if (s.length === 0) return 0
 
@@ -147,17 +150,15 @@ var lengthOfLongestSubstring = function (s) {
   // }, 0)
 
   // return Math.max.apply(Math, matched)
-  const map = {};
-  var left = 0;
+  const map = {}
+  var left = 0
 
   return s.split('').reduce((max, v, i) => {
-    left = map[v] >= left ? map[v] + 1 : left;
-    map[v] = i;
-    return Math.max(max, i - left + 1);
-  }, 0);
-};
-
-
+    left = map[v] >= left ? map[v] + 1 : left
+    map[v] = i
+    return Math.max(max, i - left + 1)
+  }, 0)
+}
 
 // 7. Reverse Integer
 // Reverse digits of an integer.
@@ -168,16 +169,19 @@ var lengthOfLongestSubstring = function (s) {
  * @param {number} x
  * @return {number}
  */
-var reverseT = function (x) {
-  let tmp = Array.prototype.map.call(x.toString(), (e) => {
-    return e
-  }).reverse().join('')
+var reverseT = function(x) {
+  let tmp = Array.prototype.map
+    .call(x.toString(), e => {
+      return e
+    })
+    .reverse()
+    .join('')
   let t = x < 0 ? Number('-' + tmp.slice(0, -1)) : Number(tmp)
   console.log(t)
-  return (t > Math.pow(2, 31) - 1 || t < -Math.pow(2, 31)) ? 0 : t
-};
+  return t > Math.pow(2, 31) - 1 || t < -Math.pow(2, 31) ? 0 : t
+}
 
-// 
+//
 // iqTest("2 4 7 8 10") => 3 // Third number is odd, while the rest of the numbers are even
 
 // iqTest("1 2 1 1") => 2 // Second number is even, while the rest of the numbers are odd
@@ -206,25 +210,38 @@ function XO(str) {
   let x = str.split('').filter(e => e.toLowerCase() === 'x').length
   let o = str.split('').filter(e => e.toLowerCase() === 'o').length
 
-  return x = o
+  return (x = o)
 }
 
-
 function XO(str) {
-  return str.match(/x/ig) === str.match(/o/ig)
+  return str.match(/x/gi) === str.match(/o/gi)
 }
 
 // 最长子串
 function longestPalindrome(s) {
   function matchPalindrome(str) {
     if (str.length % 2 === 0) {
-      var leftStr = str.slice(0, str.length / 2).split('').join('')
-      var rightStr = str.slice(str.length / 2).split('').reverse().join('')
+      var leftStr = str
+        .slice(0, str.length / 2)
+        .split('')
+        .join('')
+      var rightStr = str
+        .slice(str.length / 2)
+        .split('')
+        .reverse()
+        .join('')
 
       return leftStr === rightStr
     } else {
-      var leftStr = str.slice(0, str.length / 2).split('').join('')
-      var rightStr = str.slice(str.length / 2 + 1).split('').reverse().join('')
+      var leftStr = str
+        .slice(0, str.length / 2)
+        .split('')
+        .join('')
+      var rightStr = str
+        .slice(str.length / 2 + 1)
+        .split('')
+        .reverse()
+        .join('')
 
       return leftStr === rightStr
     }
@@ -239,11 +256,13 @@ function longestPalindrome(s) {
     }
   }
   var result = []
-  strGroup.forEach(function (item) {
+  strGroup.forEach(function(item) {
     if (item.length === 1) return item
     if (matchPalindrome(item)) {
       result.push(item)
     }
   })
-  return result.reduce(function (a, b) { return a.length > b.length ? a : b; })
+  return result.reduce(function(a, b) {
+    return a.length > b.length ? a : b
+  })
 }
