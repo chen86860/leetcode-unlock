@@ -7,6 +7,13 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Program 000",
+      "program": "${workspaceFolder}/test/000.reduce.js",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceFolder}/test/001.two-sum.js"
     }
